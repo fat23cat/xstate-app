@@ -1,24 +1,31 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import { rootMachine } from './machines';
+import { useMachine } from '@xstate/react';
+import { Router } from './Router';
 
 function App() {
+  const [state, send] = useMachine(rootMachine);
+  const machine = Object.keys(state.value)[0] as string;
+  const machineState = Object.values(state.value)[0] as string;
+
+  const sendCommand = (command: string) => {
+    send(command);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div
+      style={{
+        display: 'flex',
+        width: '100%',
+        height: '100%',
+        margin: '0 20px 20px 20px'
+      }}>
+      <Router
+        machine={machine}
+        machineState={machineState}
+        sendCommand={sendCommand}
+      />
     </div>
   );
 }

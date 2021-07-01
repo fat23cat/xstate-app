@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import './App.css';
-import { rootMachine } from './machines';
+import { rootMachine } from './machine';
 import { useMachine } from '@xstate/react';
 import { Router } from './Router';
 import { MachineContext } from './context';

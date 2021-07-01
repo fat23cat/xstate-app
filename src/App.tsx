@@ -3,6 +3,7 @@ import './App.css';
 import { rootMachine } from './machines';
 import { useMachine } from '@xstate/react';
 import { Router } from './Router';
+import { MachineContext } from './context';
 
 const washService = () => {
   return new Promise<void>((resolve) => {
@@ -31,24 +32,24 @@ function App() {
     localStorage.setItem('rootMachine', jsonState);
   }, [state]);
 
-  const sendCommand = (command: string) => {
-    send(command);
-  };
-
   return (
-    <div
-      style={{
-        display: 'flex',
-        width: '100%',
-        height: '100%',
-        margin: '0 20px 20px 20px'
+    <MachineContext.Provider
+      value={{
+        state,
+        machine,
+        machineState,
+        send
       }}>
-      <Router
-        machine={machine}
-        machineState={machineState}
-        sendCommand={sendCommand}
-      />
-    </div>
+      <div
+        style={{
+          display: 'flex',
+          width: '100%',
+          height: '100%',
+          margin: '0 20px 20px 20px'
+        }}>
+        <Router />
+      </div>
+    </MachineContext.Provider>
   );
 }
 

@@ -1,14 +1,16 @@
 import React, { FC } from 'react';
-import { StepProps } from './models';
+import { useMachineContext } from '../context';
 
-export const Home: FC<StepProps> = ({ machineState, sendCommand }) => {
+export const Home: FC = () => {
+  const { send } = useMachineContext();
+
   return (
     <div>
       <h1>Home</h1>
       <div style={{ display: 'flex', flexDirection: 'column' }}>
         <button
           onClick={() => {
-            sendCommand('START_EXPERIMENT');
+            send('START_EXPERIMENT');
           }}>
           Start experiment
         </button>
@@ -16,7 +18,7 @@ export const Home: FC<StepProps> = ({ machineState, sendCommand }) => {
       <button
         style={{ marginTop: '10px' }}
         onClick={() => {
-          sendCommand('WASH_INSTRUMENT');
+          send('WASH_INSTRUMENT');
         }}>
         Wash the instrument
       </button>

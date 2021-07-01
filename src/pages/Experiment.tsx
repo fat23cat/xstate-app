@@ -1,7 +1,9 @@
 import React, { FC } from 'react';
-import { StepProps } from './models';
+import { useMachineContext } from '../context';
 
-export const Experiment: FC<StepProps> = ({ machineState, sendCommand }) => {
+export const Experiment: FC = () => {
+  const { send, machineState } = useMachineContext();
+
   return (
     <div>
       <h1>Experiment</h1>
@@ -9,7 +11,7 @@ export const Experiment: FC<StepProps> = ({ machineState, sendCommand }) => {
         <button
           disabled={machineState === 'finish'}
           onClick={() => {
-            sendCommand('RUN_EXPERIMENT');
+            send('RUN_EXPERIMENT');
           }}>
           Run experiment
         </button>
@@ -17,7 +19,7 @@ export const Experiment: FC<StepProps> = ({ machineState, sendCommand }) => {
           disabled={machineState === 'finish'}
           style={{ marginTop: '10px' }}
           onClick={() => {
-            sendCommand('PREV');
+            send('PREV');
           }}>
           Prev
         </button>
@@ -27,7 +29,7 @@ export const Experiment: FC<StepProps> = ({ machineState, sendCommand }) => {
           <p style={{ marginTop: '10px' }}>Experiment finished</p>
           <button
             onClick={() => {
-              sendCommand('COMPLETE');
+              send('COMPLETE');
             }}>
             Back home
           </button>

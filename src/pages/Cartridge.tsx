@@ -1,21 +1,23 @@
 import React, { FC } from 'react';
-import { StepProps } from './models';
+import { useMachineContext } from '../context';
 
-export const Cartridge: FC<StepProps> = ({ machineState, sendCommand }) => {
+export const Cartridge: FC = () => {
+  const { send, machineState } = useMachineContext();
+
   return (
     <div>
       <h1>Insert cartridge</h1>
       <div style={{ display: 'flex', flexDirection: 'column' }}>
         <button
           onClick={() => {
-            sendCommand('INSERT_CARTRIDGE');
+            send('INSERT_CARTRIDGE');
           }}>
           Insert cartridge
         </button>
         <div style={{ display: 'flex', marginTop: '10px' }}>
           <button
             onClick={() => {
-              sendCommand('PREV');
+              send('PREV');
             }}>
             Cancel
           </button>
@@ -23,7 +25,7 @@ export const Cartridge: FC<StepProps> = ({ machineState, sendCommand }) => {
             style={{ marginLeft: '10px' }}
             disabled={machineState !== 'finish'}
             onClick={() => {
-              sendCommand('NEXT');
+              send('NEXT');
             }}>
             Next
           </button>

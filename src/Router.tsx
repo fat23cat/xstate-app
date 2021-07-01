@@ -1,30 +1,19 @@
 import React, { FC } from 'react';
+import { useMachineContext } from './context';
 import { Home, Cartridge, Experiment, Washing } from './pages';
 
-interface RouterProps {
-  machine: string;
-  machineState: string;
-  sendCommand: (command: string) => void;
-}
+export const Router: FC = () => {
+  const { machine } = useMachineContext();
 
-export const Router: FC<RouterProps> = ({
-  machine,
-  machineState,
-  sendCommand
-}) => {
   switch (machine) {
     case 'home':
-      return <Home machineState={machineState} sendCommand={sendCommand} />;
+      return <Home />;
     case 'cartridge':
-      return (
-        <Cartridge machineState={machineState} sendCommand={sendCommand} />
-      );
+      return <Cartridge />;
     case 'experiment':
-      return (
-        <Experiment machineState={machineState} sendCommand={sendCommand} />
-      );
+      return <Experiment />;
     case 'wash':
-      return <Washing machineState={machineState} sendCommand={sendCommand} />;
+      return <Washing />;
     default:
       return <></>;
   }

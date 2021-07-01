@@ -1,7 +1,9 @@
 import React, { FC } from 'react';
-import { StepProps } from './models';
+import { useMachineContext } from '../context';
 
-export const Washing: FC<StepProps> = ({ machineState, sendCommand }) => {
+export const Washing: FC = () => {
+  const { send, machineState } = useMachineContext();
+
   return (
     <div>
       <h1>Washing the instrument</h1>
@@ -9,7 +11,7 @@ export const Washing: FC<StepProps> = ({ machineState, sendCommand }) => {
         <button
           disabled={machineState !== 'idle'}
           onClick={() => {
-            sendCommand('START_WASHING');
+            send('START_WASHING');
           }}>
           Wash
         </button>
@@ -17,7 +19,7 @@ export const Washing: FC<StepProps> = ({ machineState, sendCommand }) => {
           <button
             style={{ marginTop: '10px' }}
             onClick={() => {
-              sendCommand('CANCEL');
+              send('CANCEL');
             }}>
             Cancel
           </button>
@@ -27,7 +29,7 @@ export const Washing: FC<StepProps> = ({ machineState, sendCommand }) => {
             <p>Washing completed</p>
             <button
               onClick={() => {
-                sendCommand('FINISH');
+                send('FINISH');
               }}>
               Back home
             </button>

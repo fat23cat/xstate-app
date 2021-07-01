@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './App.css';
 import { rootMachine } from './machines';
 import { useMachine } from '@xstate/react';
@@ -12,8 +12,13 @@ const washService = () => {
   });
 };
 
+const persistedState =
+  JSON.parse(localStorage.getItem('rootMachine') as string) ||
+  rootMachine.initialState;
+
 function App() {
   const [state, send] = useMachine(rootMachine, {
+    state: persistedState,
     services: {
       washService
     }
@@ -21,8 +26,10 @@ function App() {
   const machine = Object.keys(state.value)[0] as string;
   const machineState = Object.values(state.value)[0] as string;
 
-  console.log('machine', machine);
-  console.log('machineState', machineState);
+  useEffect(() => {
+    const jsonState = JSON.stringify(state);
+    localStorage.setItem('rootMachine', jsonState);
+  }, [state]);
 
   const sendCommand = (command: string) => {
     send(command);

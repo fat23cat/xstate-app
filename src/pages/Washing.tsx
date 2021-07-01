@@ -22,7 +22,7 @@ export const Washing: FC<StepProps> = ({ machineState, sendCommand }) => {
             Cancel
           </button>
         )}
-        {machineState === 'finish' && (
+        {machineState === 'washed' && (
           <>
             <p>Washing completed</p>
             <button

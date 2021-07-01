@@ -23,14 +23,20 @@ export const rootMachine = Machine({
         idle: {
           on: {
             START_WASHING: {
-              target: 'finish'
+              target: 'washing'
             },
             CANCEL: {
               target: '#home'
             }
           }
         },
-        finish: {
+        washing: {
+          invoke: {
+            src: 'washService',
+            onDone: 'washed'
+          }
+        },
+        washed: {
           on: {
             FINISH: {
               target: '#home'

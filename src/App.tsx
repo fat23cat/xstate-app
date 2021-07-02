@@ -1,29 +1,16 @@
 import React, { useEffect } from 'react';
 import './App.css';
-import { rootMachine } from './machine';
-import { useMachine } from '@xstate/react';
+import { interpretedMachine } from './machine';
+import { useActor } from '@xstate/react';
 import { Router } from './Router';
 import { MachineContext } from './context';
 
-const washService = () => {
-  return new Promise<void>((resolve) => {
-    setTimeout(() => {
-      resolve();
-    }, 1000);
-  });
-};
 
-const persistedState =
-  JSON.parse(localStorage.getItem('rootMachine') as string) ||
-  rootMachine.initialState;
+
+
 
 function App() {
-  const [state, send] = useMachine(rootMachine, {
-    state: persistedState,
-    services: {
-      washService
-    }
-  });
+  const [state, send] = useActor(interpretedMachine);
   const machine = Object.keys(state.value)[0] as string;
   const machineState = Object.values(state.value)[0] as string;
 

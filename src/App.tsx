@@ -5,10 +5,6 @@ import { useActor } from '@xstate/react';
 import { Router } from './Router';
 import { MachineContext } from './context';
 
-
-
-
-
 function App() {
   const [state, send] = useActor(interpretedMachine);
   const machine = Object.keys(state.value)[0] as string;
@@ -22,7 +18,6 @@ function App() {
   return (
     <MachineContext.Provider
       value={{
-        state,
         machine,
         machineState,
         send

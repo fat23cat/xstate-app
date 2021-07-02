@@ -1,7 +1,6 @@
 import { createContext } from 'react';
 
 interface Context {
-  state: any;
   machine: string;
   machineState: string;
   send: (command: string) => void;

@@ -1,6 +1,5 @@
 import { washService } from './../services/washService';
-import { interpret } from 'xstate';
-import { Machine } from 'xstate';
+import { Machine, interpret } from 'xstate';
 
 export const rootMachine = Machine(
   {

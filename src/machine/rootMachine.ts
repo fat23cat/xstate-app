@@ -1,13 +1,6 @@
+import { washService } from './../services/washService';
 import { interpret } from 'xstate';
 import { Machine } from 'xstate';
-
-const washService = () => {
-  return new Promise<void>((resolve) => {
-    setTimeout(() => {
-      resolve();
-    }, 1000);
-  });
-};
 
 export const rootMachine = Machine(
   {
